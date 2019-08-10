@@ -7,7 +7,10 @@ module.exports = env => {
     entry: {
       background: "./src/background.js",
       app: "./src/app.js",
-      print: "./src/print.js"
+      print: "./src/print.js",
+      minimum: "./src/minimum.js",
+      getPrint: "./src/getPrint.js",
+      getInfo: "./src/getInfo.js"
     },
     output: {
       filename: "[name].js",

@@ -35,9 +35,12 @@ app.on("ready", () => {
 
   const mainWindow = createWindow("main", {
     width: 1000,
-    height: 600
+    height: 600,
+    fullscreen: false,
+    kiosk: true
   });
-
+ 
+ 
   mainWindow.loadURL(
     url.format({
       pathname: path.join(__dirname, "index.html"),
@@ -45,10 +48,12 @@ app.on("ready", () => {
       slashes: true
     })
   );
+  mainWindow.setMenu(null);
+  mainWindow.setMenuBarVisibility(false);
 
-  if (env.name === "development") {
-    mainWindow.openDevTools();
-  }
+  // if (env.name === "development") {
+  //   mainWindow.openDevTools();
+  // }
 });
 
 app.on("window-all-closed", () => {

@@ -81,10 +81,40 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/print.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/getPrint.js");
 /******/ })
 /************************************************************************/
 /******/ ({
+
+/***/ "./src/getPrint.js":
+/*!*************************!*\
+  !*** ./src/getPrint.js ***!
+  \*************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _helpers_window__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers/window */ "./src/helpers/window.js");
+
+
+const {
+  app,
+  BrowserWindow,
+  remote
+} = __webpack_require__(/*! electron */ "electron");
+
+exports.getPrint = callback => {
+  let win = new BrowserWindow({
+    width: 800,
+    height: 600,
+    show: false
+  });
+  var list = win.webContents.getPrinters();
+  callback(list);
+};
+
+/***/ }),
 
 /***/ "./src/helpers/window.js":
 /*!*******************************!*\
@@ -182,164 +212,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./src/print.js":
-/*!**********************!*\
-  !*** ./src/print.js ***!
-  \**********************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _helpers_window__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers/window */ "./src/helpers/window.js");
-/* harmony import */ var node_html_parser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! node-html-parser */ "node-html-parser");
-/* harmony import */ var node_html_parser__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(node_html_parser__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var jsx_to_html__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! jsx-to-html */ "jsx-to-html");
-/* harmony import */ var jsx_to_html__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(jsx_to_html__WEBPACK_IMPORTED_MODULE_2__);
-
-
-const {
-  app,
-  BrowserWindow,
-  remote
-} = __webpack_require__(/*! electron */ "electron");
-
-const ThermalPrinter = __webpack_require__(/*! node-thermal-printer */ "node-thermal-printer").printer;
-
-const PrinterTypes = __webpack_require__(/*! node-thermal-printer */ "node-thermal-printer").types;
-
-
-
-const fs = __webpack_require__(/*! fs */ "fs");
-
-const createHTML = __webpack_require__(/*! create-html */ "create-html");
-
-
-
-const path = __webpack_require__(/*! path */ "path");
-
-exports.print = (billHTML, barHTML, cookerHTML, printers, callback) => {
-  var html = createHTML({
-    css: 'stylePrint.css',
-    body: billHTML
-  });
-  const dirPathFolder = path.join(process.cwd(), '/print');
-
-  try {
-    if (!fs.existsSync(dirPathFolder)) {
-      fs.mkdirSync(dirPathFolder);
-    }
-  } catch (err) {
-    console.log(err);
-  }
-
-  fs.writeFile(dirPathFolder + '\\bill.html', html, function (err) {
-    if (err) {
-      console.log(err);
-    } else {
-      let win = new BrowserWindow({
-        width: 800,
-        height: 600,
-        show: false
-      });
-      win.on('closed', () => {
-        win = null;
-      });
-      win.loadURL(dirPathFolder + '\\bill.html');
-      win.webContents.on('did-finish-load', () => {
-        setTimeout(function () {
-          win.webContents.print({
-            silent: true,
-            printBackground: true,
-            deviceName: 'bill1'
-          }, function (err) {
-            win.webContents.print({
-              silent: true,
-              printBackground: true,
-              deviceName: 'bill1'
-            }, function (err) {});
-          });
-        }, 1000);
-      });
-
-      if (barHTML && barHTML != 'none') {
-        var barHTMLTmp = createHTML({
-          css: 'stylePrint.css',
-          body: barHTML
-        });
-        fs.writeFile(dirPathFolder + '\\bar.html', barHTMLTmp, function (err) {
-          if (err) {
-            console.log(err);
-          } else {
-            let win1 = new BrowserWindow({
-              width: 800,
-              height: 600,
-              show: false
-            });
-            win1.on('closed', () => {
-              win1 = null;
-            });
-            win1.loadURL(dirPathFolder + '\\bar.html');
-            win1.webContents.on('did-finish-load', () => {
-              setTimeout(function () {
-                win1.webContents.print({
-                  silent: true,
-                  printBackground: true,
-                  deviceName: 'bill2'
-                }, function (err) {});
-              }, 1000);
-            });
-          }
-        });
-      }
-
-      if (cookerHTML && cookerHTML != 'none') {
-        var cookerHTMLTmp = createHTML({
-          css: 'stylePrint.css',
-          body: cookerHTML
-        });
-        fs.writeFile(dirPathFolder + '\\cooker.html', cookerHTMLTmp, function (err) {
-          if (err) {
-            console.log(err);
-          } else {
-            let win2 = new BrowserWindow({
-              width: 800,
-              height: 600,
-              show: false
-            });
-            win2.on('closed', () => {
-              win2 = null;
-            });
-            win2.loadURL(dirPathFolder + '\\cooker.html');
-            win2.webContents.on('did-finish-load', () => {
-              setTimeout(function () {
-                win2.webContents.print({
-                  silent: true,
-                  printBackground: true,
-                  deviceName: 'bill3'
-                }, function (err) {});
-              }, 1000);
-            });
-          }
-        });
-      }
-    }
-  });
-};
-
-/***/ }),
-
-/***/ "create-html":
-/*!******************************!*\
-  !*** external "create-html" ***!
-  \******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("create-html");
-
-/***/ }),
-
 /***/ "electron":
 /*!***************************!*\
   !*** external "electron" ***!
@@ -348,17 +220,6 @@ module.exports = require("create-html");
 /***/ (function(module, exports) {
 
 module.exports = require("electron");
-
-/***/ }),
-
-/***/ "fs":
-/*!*********************!*\
-  !*** external "fs" ***!
-  \*********************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("fs");
 
 /***/ }),
 
@@ -371,51 +232,7 @@ module.exports = require("fs");
 
 module.exports = require("fs-jetpack");
 
-/***/ }),
-
-/***/ "jsx-to-html":
-/*!******************************!*\
-  !*** external "jsx-to-html" ***!
-  \******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("jsx-to-html");
-
-/***/ }),
-
-/***/ "node-html-parser":
-/*!***********************************!*\
-  !*** external "node-html-parser" ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("node-html-parser");
-
-/***/ }),
-
-/***/ "node-thermal-printer":
-/*!***************************************!*\
-  !*** external "node-thermal-printer" ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("node-thermal-printer");
-
-/***/ }),
-
-/***/ "path":
-/*!***********************!*\
-  !*** external "path" ***!
-  \***********************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("path");
-
 /***/ })
 
 /******/ });
-//# sourceMappingURL=print.js.map
+//# sourceMappingURL=getPrint.js.map

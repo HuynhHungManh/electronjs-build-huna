@@ -1,0 +1,80 @@
+
+@font-face {
+  font-family: 'Roboto-Bold';
+  src: url('fonts/Roboto-Bold.eot');
+  src: url('fonts/Roboto-Bold.eot?#iefix') format('embedded-opentype'),
+    url('fonts/Roboto-Bold.woff') format('woff'),
+    url('fonts/Roboto-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto-Medium';
+  src: url('fonts/Roboto-Medium.eot');
+  src: url('fonts/Roboto-Medium.eot?#iefix') format('embedded-opentype'),
+    url('fonts/Roboto-Medium.woff') format('woff'),
+    url('.fonts/Roboto-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto-Regular';
+  src: url('fonts/Roboto-Regular.eot');
+  src: url('fonts/Roboto-Regular.eot?#iefix') format('embedded-opentype'),
+    url('fonts/Roboto-Regular.woff') format('woff'),
+    url('fonts/Roboto-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@page {
+  margin-top: 0cm;
+  margin-left: 0cm;
+  margin-right: 0cm;
+  margin-bottom: -.5cm;
+}
+.title-template {
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-family: 'Roboto-Bold';
+}
+.template-print {
+  font-family: 'Roboto-Medium';
+}
+.template-print p {
+  margin: 0 0 3px 0;
+}
+.address-template {
+  line-height: 16px;
+  font-size: 12px;
+}
+.phone-template {
+  font-size: 12px;
+}
+.title-bill {
+  font-family: 'Roboto-Bold';
+  font-size: 17px;
+}
+.number-table {
+  font-size: 13px;
+  font-family: 'Roboto-Bold';
+}
+.content-info {
+  border: none;
+  font-size: 12px;
+}
+.content-price {
+  border: none;
+  font-size: 12px;
+}
+.title-table {
+  font-family: 'Roboto-Bold';
+  font-size: 14px;
+}
+.content-table {
+  font-size: 11px;
+  font-family: 'Roboto-Regular';
+}

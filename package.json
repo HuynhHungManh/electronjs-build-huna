@@ -31,7 +31,11 @@
     "release": "npm test && webpack --config=build/webpack.app.config.js --env=production && electron-builder"
   },
   "dependencies": {
+    "create-html": "^4.1.0",
+    "electron-printer": "^0.0.5",
     "fs-jetpack": "^2.1.0",
+    "jsx-to-html": "^1.1.0",
+    "node-html-parser": "^1.1.16",
     "node-thermal-printer": "^4.1.0"
   },
   "devDependencies": {
